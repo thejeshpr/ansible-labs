@@ -61,8 +61,12 @@
         wait: yes
         group: "{{ secutiy_grp_name }}"
         instance_tags:
-          Name: infra-test-jenkins
-      register: ec2
+          Name: "{{ item }}"
+      with_items:
+        - jenkins
+        - docker
+      #register: ec2
+
 
     #- name: assign eip to instance
     #  ec_eip:
