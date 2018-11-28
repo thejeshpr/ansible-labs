@@ -19,7 +19,7 @@
         name: "{{ keyname }}"
       register: created_key
 
-    # save key
+    # save key to local FS
     - name: save key to filesystem
       copy: content="{{ created_key.key.private_key }}" dest="~/.ssh/{{keyname }}.pem" mode=0600
       when: created_key.changed
