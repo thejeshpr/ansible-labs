@@ -62,6 +62,9 @@
         group: "{{ secutiy_grp_name }}"
         instance_tags:
           Name: "{{ item }}"
+        count_tag:
+          Name: "{{ item }}"
+        exact_count: 1
       with_items:
         - jenkins
         - docker
