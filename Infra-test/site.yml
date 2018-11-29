@@ -1,0 +1,6 @@
+---
+- name: Provison the servers
+  hosts: local
+  
+  roles:
+    - provision

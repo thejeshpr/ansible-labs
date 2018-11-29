@@ -1,0 +1,41 @@
+- name: create ec2 key pair
+  tags: keypair
+  ec2_key:
+    region: "{{ region }}"
+    name: "{{ region }}-{{ environment }}"
+  register: created_key
+
+- name: save key to filesystem
+  copy: content="{{ created_key.key.private_key }}" dest="~/.ssh/{{ region }}-{{ environment }}.pem" mode=0600
+  when: created_key.changed
+  
+- name: create security group
+  tags:security_group
+  ec2_group:
+    name: "{{ region }}-{{ environment }}-sg"
+    region: "{{ region }}"
+    descript: "{{ environment }}" SG
+    - rules:
+        - proto: tcp
+          from_port: 22
+          to_port: 22
+          cidr_ip: 0.0.0.0/0
+        - proto: tcp
+          from_port: 80
+          to_port: 80
+          cidr_ip: 0.0.0.0/0          
+        - proto: tcp
+          from_port: 443
+          to_port: 443
+          cidr_ip: 0.0.0.0/0
+      rules_egress:
+        - proto: all
+          cidr_ip: 0.0.0.0/0
+
+- name: create ec2 instances
+  tags: ec2
+  ec2:
+    region: "{{ region }}" 
+    instance_type: "{{ item.instance_type }}"
+    key_name: "{{ region }}-{{ environment }}"
+    image: "{{ item.image }}"
