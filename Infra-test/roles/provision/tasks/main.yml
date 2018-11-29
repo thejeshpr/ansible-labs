@@ -14,7 +14,7 @@
   ec2_group:
     name: "{{ region }}-{{ environment }}-sg"
     region: "{{ region }}"
-    descript: "{{ environment }}" SG
+    descript: "{{ environment }} SG"
     - rules:
         - proto: tcp
           from_port: 22
