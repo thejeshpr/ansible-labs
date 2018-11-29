@@ -1,14 +1,14 @@
-{
-	"jenkins":{
+[
+	{
 		"name": "Jenkins",
 		"image": "ami-5b673c34",
 		"instance_type":"t2.micro",
 		"count": 1
 	},
-	"docker":{
-		"name": "Jenkins",
+	{
+		"name": "Docker",
 		"image": "ami-5b673c34",
 		"instance_type":"t2.micro",
 		"count": 1
 	}
-}
+]

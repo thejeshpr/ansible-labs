@@ -2,4 +2,4 @@
 # Provision config
 environment: test
 region: ap-south-1
-provison_config: "{{ lookup('file', '../provison_config.json') | from_json }}" 
+provison_config: "{{ lookup('file', 'provison_config.json') | from_json }}" 
