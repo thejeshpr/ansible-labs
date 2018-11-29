@@ -1,19 +1,19 @@
 - name: create ec2 key pair
   tags: keypair
   ec2_key:
-    region: "{{ aws-region }}"
-    name: "{{ aws-region }}_{{ environment }}"
+    region: "{{ region }}"
+    name: "{{ region }}_{{ environment }}"
   register: created_key
 
 - name: save key to filesystem
-  copy: content="{{ created_key.key.private_key }}" dest="~/.ssh/{{ aws-region }}_{{ environment }}.pem" mode=0600
+  copy: content="{{ created_key.key.private_key }}" dest="~/.ssh/{{ region }}_{{ environment }}.pem" mode=0600
   when: created_key.changed
   
 - name: create security group
   tags: security_group
   ec2_group:
-    name: "{{ aws-region }}_{{ environment }}_sg"
-    region: "{{ aws-region }}"
+    name: "{{ region }}_{{ environment }}_sg"
+    region: "{{ region }}"
     description: "{{ environment }} SG"
     rules:
       - proto: tcp
@@ -35,11 +35,11 @@
 - name: create ec2 instances
   tags: ec2
   ec2:
-    region: "{{ aws-region }}" 
+    region: "{{ region }}" 
     instance_type: "{{ item.instance_type }}"
-    key_name: "{{ aws-region }}_{{ environment }}"
+    key_name: "{{ region }}_{{ environment }}"
     image: "{{ item.image }}"
-    group: "{{ aws-region }}_{{ environment }}_sg"
+    group: "{{ region }}_{{ environment }}_sg"
     wait: yes
     instance_tags:
       Name: "{{ item.name }}"
