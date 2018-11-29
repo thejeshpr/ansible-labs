@@ -39,3 +39,11 @@
     instance_type: "{{ item.instance_type }}"
     key_name: "{{ region }}-{{ environment }}"
     image: "{{ item.image }}"
+    group: "{{ region }}-{{ environment }}-sg"
+    wait: yes
+    instance_tags:
+      Name: "{{ item.name }}"
+    count_tag:
+      Name: "{{ item.name }}"
+    exact_count: 1
+  with_items: "{{ provison_config }}"
