@@ -8,7 +8,8 @@
 - name: save key to filesystem
   copy:
     content: "{{ created_key.key.private_key }}"
-    dest: "~/.ssh/{{ region }}-{{ envrmnt }}.pem" mode=0600
+    dest: "~/.ssh/{{ region }}-{{ envrmnt }}.pem" 
+    mode: 0600
   when: created_key.changed
   
 - name: create security group
