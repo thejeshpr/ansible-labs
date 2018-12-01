@@ -47,6 +47,6 @@
     instance_tags:
       Name: "{{ region }}-{{ item.name }}"
     count_tag:
-      Name: "{{ item.name }}"
+      Name: "{{ region }}-{{ item.name }}"
     exact_count: 1
   with_items: "{{ provison_config }}"

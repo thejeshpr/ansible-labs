@@ -1,0 +1,52 @@
+---
+- name: Install docker dependencies
+  yum:
+    name: "{{ packages }}"
+    state: present
+  vars:
+    packages:
+      - yum-utils
+      - device-mapper-persistent-data
+      - lvm2
+
+- name: Add docker repo
+  yum_repository:
+    name: docker-ce
+    description: docker-ce repo
+    baseurl: https://download.docker.com/linux/centos/docker-ce.repo
+
+
+# Optional: Enable the edge and test repositories. These repositories 
+# are included in the docker.repo file above but are disabled by default.
+# You can enable them alongside the stable repository.
+# - name: enable docker-ce-edge and docker-ce-test
+#   yum_repository:
+#     name: docker-ce-edge
+#     enabled: y
+#   vars:
+#     repos:
+#       - docker-ce-edge
+#       - docker-ce-test
+
+- name: install docker-ce
+  yum:
+    name: docker-ce
+    state: present
+
+- name: create docker user
+  user:
+    name: dockeradmin
+    password: dockeradmin
+    group:
+      - docker
+    state: present
+    shell: /bin/bash
+    system: no
+    createhome: yes
+    home: /home/dockeradmin
+
+- name: start docker service
+  service:
+    name: docker
+    state: started
+

@@ -1,6 +1,11 @@
 ---
 - name: Provison the servers
   hosts: local
-  
   roles:
     - provision
+
+- name: Install docker on docker nodes
+  hosts: "tags_Name_{{ region }}-Docker"
+  roles:
+    - docker
+
