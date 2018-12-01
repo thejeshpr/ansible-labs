@@ -1,4 +1,9 @@
 ---
+- name: install development tools
+  yum:
+    name: "@Development tools"
+    state: latest
+
 - name: Install docker dependencies
   yum:
     name: "{{ packages }}"

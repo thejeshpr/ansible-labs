@@ -5,7 +5,10 @@
     - provision
 
 - name: Install docker on docker nodes
-  hosts: "tags_Name_{{ region }}-Docker"
+  vars:
+    region: ap-south-1
+  # hosts: "tag_Name_{{ region }}_Docker"
+  hosts: tag_Name_ap_south_1_Docker
   roles:
     - docker
 
