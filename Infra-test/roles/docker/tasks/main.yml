@@ -1,4 +1,20 @@
 ---
+
+- name: Install epel releases
+  yum:
+    name: epel-release
+    state: latest
+
+- name: add docker repo
+  get_url:
+    url: https://download.docker.com/linux/centos/docker-ce.repo
+    dest: /etc/yum.repos.d/docker-ce.repo
+
+- name: update repositories
+  yum:
+    name: *
+    state: latest  
+
 - name: install development tools
   yum:
     name: "@Development tools"
@@ -14,11 +30,11 @@
       - device-mapper-persistent-data
       - lvm2
 
-- name: Add docker repo
-  yum_repository:
-    name: docker-ce
-    description: docker-ce repo
-    baseurl: https://download.docker.com/linux/centos/docker-ce.repo
+# - name: Add docker repo
+#   yum_repository:
+#     name: docker-ce
+#     description: docker-ce repo
+#     baseurl: https://download.docker.com/linux/centos/docker-ce.repo
 
 
 # Optional: Enable the edge and test repositories. These repositories 
