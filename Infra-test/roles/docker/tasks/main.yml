@@ -4,6 +4,7 @@
   yum:
     name: epel-release
     state: latest
+    update_cache: yes
 
 - name: add docker repo
   get_url:
@@ -30,13 +31,6 @@
       - device-mapper-persistent-data
       - lvm2
 
-# - name: Add docker repo
-#   yum_repository:
-#     name: docker-ce
-#     description: docker-ce repo
-#     baseurl: https://download.docker.com/linux/centos/docker-ce.repo
-
-
 # Optional: Enable the edge and test repositories. These repositories 
 # are included in the docker.repo file above but are disabled by default.
 # You can enable them alongside the stable repository.
@@ -54,12 +48,16 @@
     name: docker-ce
     state: present
 
+- name: make sure docker group is present
+  group:
+    name: docker
+    state: present
+
 - name: create docker user
   user:
     name: dockeradmin
     password: dockeradmin
-    group:
-      - docker
+    group: docker
     state: present
     shell: /bin/bash
     system: no
