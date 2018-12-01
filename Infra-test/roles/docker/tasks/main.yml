@@ -13,7 +13,7 @@
 - name: update repositories
   yum:
     name: *
-    state: latest  
+    state: latest
 
 - name: install development tools
   yum:
