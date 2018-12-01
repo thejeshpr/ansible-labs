@@ -12,7 +12,7 @@
 
 - name: update repositories
   yum:
-    name: *
+    name: '*'
     state: latest
 
 - name: install development tools

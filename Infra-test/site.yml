@@ -1,6 +1,7 @@
 ---
 - name: Provison the servers
   hosts: local
+  connection: local
   roles:
     - provision
 
