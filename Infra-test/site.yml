@@ -8,9 +8,17 @@
 - name: Install docker on docker nodes
   vars:
     region: ap-south-1
-  hosts: tag_Name_{{ region }}_Docker
-  #hosts: tag_Name_ap_south_1_Docker
+  #hosts: tag_Name_{{ region }}_Docker
+  hosts: tag_Name_ap_south_1_Docker
   become: yes
   roles:
     - docker
 
+- name: Install jenkins on jenkins nodes
+  vars:
+    region: ap-south-1
+  #hosts: tag_Name_{{ region }}_Docker
+  hosts: tag_Name_ap_south_1_Jenkins
+  become: yes
+  roles:
+    - jenkins

@@ -1,0 +1,31 @@
+---
+- name: Add Jenkins repo
+  get_url:
+    url: https://pkg.jenkins.io/redhat-stable/jenkins.repo
+    dest: /etc/yum.repos.d/jenkins.repo
+
+- name: Ensure Jenkins registry is available
+  rpm_key:
+    key: https://pkg.jenkins.io/redhat-stable/jenkins.io.key
+    state: present
+
+- name: Install Jenkins
+  yum:
+    name: nginx
+    state: latest
+    update_cache: yes
+  vars:
+    pacakages:
+      - nginx
+      - java-1.8.0-openjdk
+      - jenkins
+
+- name: Start nginx
+  service:
+    name: nginx
+    state: started
+
+- name: Restart Jenkins
+  service:
+    name: jenkins
+    state: started
