@@ -9,9 +9,9 @@
     key: https://pkg.jenkins.io/redhat-stable/jenkins.io.key
     state: present
 
-- name: Install Jenkins
+- name: Install nginx, java-1.8.0-openjdk, jenkins
   yum:
-    name: nginx
+    name: "{{ pacakages }}"
     state: latest
     update_cache: yes
   vars:
