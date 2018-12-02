@@ -9,13 +9,14 @@
     key: https://pkg.jenkins.io/redhat-stable/jenkins.io.key
     state: present
 
-- name: Install nginx, java-1.8.0-openjdk, jenkins
+- name: Install epel-release, nginx, java-1.8.0-openjdk, jenkins
   yum:
     name: "{{ pacakages }}"
     state: latest
     update_cache: yes
   vars:
     pacakages:
+      - epel-release
       - nginx
       - java-1.8.0-openjdk
       - jenkins
